@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Millenium.Runner", "ProductivityTools.Bank.Millenium.Runner\ProductivityTools.Bank.Millenium.Runner.csproj", "{D7719390-1411-4B02-B664-9934F0DB7E72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.Selenium", "ProductivityTools.Bank.Millenium.Selenium\ProductivityTools.Bank.Millenium.Selenium.csproj", "{138C17CD-048B-4BC6-BD7E-EBCB91B32356}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Millenium.Selenium", "ProductivityTools.Bank.Millenium.Selenium\ProductivityTools.Bank.Millenium.Selenium.csproj", "{138C17CD-048B-4BC6-BD7E-EBCB91B32356}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.App", "ProductivityTools.Bank.Millenium.App\ProductivityTools.Bank.Millenium.App.csproj", "{1E0D733D-83B2-481C-850C-8992E46F5CA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Millenium.App", "ProductivityTools.Bank.Millenium.App\ProductivityTools.Bank.Millenium.App.csproj", "{1E0D733D-83B2-481C-850C-8992E46F5CA6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.MasterConfiguration", "..\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj", "{549ED77F-9C95-44D1-8541-FA13E1624BB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1E0D733D-83B2-481C-850C-8992E46F5CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E0D733D-83B2-481C-850C-8992E46F5CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E0D733D-83B2-481C-850C-8992E46F5CA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
