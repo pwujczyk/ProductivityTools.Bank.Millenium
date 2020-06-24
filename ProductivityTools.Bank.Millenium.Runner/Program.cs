@@ -21,15 +21,15 @@ namespace ProductivityTools.Bank.Millenium.Runner
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{environment}.json", true, true)
-                .AddMasterConfiguration()
+                .AddMasterConfiguration(true)
                 .Build();
             var settings = configuration["Login"];
             var settings2 = configuration["Login2"];
-            var x=configuration.Get<Settings>();
+            var x = configuration.Get<Settings>();
             Console.WriteLine(settings);
 
             MilleniumApplication app = new MilleniumApplication();
-            app.Run();
+            app.Run(x.Login, x.Password, x.Pesel);
             Console.ReadLine();
         }
     }

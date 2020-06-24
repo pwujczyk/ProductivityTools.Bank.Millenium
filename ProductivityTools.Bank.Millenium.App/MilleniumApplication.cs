@@ -5,10 +5,10 @@ namespace ProductivityTools.Bank.Millenium.App
 {
     public class MilleniumApplication
     {
-        public void Run()
+        public void Run(string login, string password, string pesel)
         {
             SeleniumCalls calls = new SeleniumCalls();
-            calls.Login(string.Empty,string.Empty,string.Empty);
+            calls.Login(login, password, pesel);
         }
     }
 }

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ProductivityTools.Bank.Millenium.Runner": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "MasterConfiguration"
+      }
+    }
+  }
+}
