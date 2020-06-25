@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,7 +13,23 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
         public SeleniumCalls()
         {
-            this.Chrome = new ChromeDriver();
+            ChromeOptions options = new ChromeOptions();
+            options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+            options.SetLoggingPreference(LogType.Client, LogLevel.All);
+            options.SetLoggingPreference(LogType.Driver, LogLevel.All);
+            options.SetLoggingPreference(LogType.Profiler, LogLevel.All);
+            options.SetLoggingPreference(LogType.Server, LogLevel.All);
+            
+            //LoggingPreferences logPrefs = new LoggingPreferences();
+            //logPrefs.enable(LogType.BROWSER, Level.ALL);
+            //options.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+
+
+            //options.AddArguments("start-maximized");
+            //ReadOnlyDesiredCapabilities capabilities = new ReadOnlyDesiredCapabilities();
+
+            //capabilities.etCapability(ChromeOptions.CAPABILITY, options);
+            this.Chrome = new ChromeDriver(options);
         }
 
         public void Login(string login, string password, string Pesel)
@@ -28,13 +45,13 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             passwordControl.SendKeys(password);
 
             bool[] peselInputs = new bool[11];
-            Func<string,bool> peselEnabled = (id) =>
-              {
-                  var peselControl = this.Chrome.FindElement(By.Id(id));
-                  var disabled = peselControl.GetAttribute("disabled");
-                  return !(disabled == "true");
-              };
-           ;
+            Func<string, bool> peselEnabled = (id) =>
+               {
+                   var peselControl = this.Chrome.FindElement(By.Id(id));
+                   var disabled = peselControl.GetAttribute("disabled");
+                   return !(disabled == "true");
+               };
+            ;
 
 
             //peselInputs[0] = peselDisabled("PESEL_0_txtContent");
@@ -62,6 +79,17 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             this.Chrome.FindElement(By.Id("BtnLogin")).Click();
 
             this.Chrome.Url = "https://www.bankmillennium.pl/osobiste2/Accounts/CurrentAccountDetails/Details";
+            var x = this.Chrome.Manage().Logs.AvailableLogTypes;
+            var x1 = this.Chrome.Manage().Logs.GetLog("browser");
+            var x2 = this.Chrome.Manage().Logs.GetLog("driver");
+            
+            foreach (var item in x2)
+            {
+                Console.WriteLine(item.Message);Console.WriteLine();
+            }
+            var xx3 = this.Chrome as IJavaScriptExecutor;
+            var ajaxIsComplete = (bool)(this.Chrome as IJavaScriptExecutor).ExecuteScript("return jQuery.active == 0");
         }
+
     }
 }
