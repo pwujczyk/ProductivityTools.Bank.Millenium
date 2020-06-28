@@ -9,6 +9,7 @@ namespace ProductivityTools.Bank.Millenium.App
         {
             SeleniumCalls calls = new SeleniumCalls();
             calls.Login(login, password, pesel);
+            calls.GetData();
         }
     }
 }

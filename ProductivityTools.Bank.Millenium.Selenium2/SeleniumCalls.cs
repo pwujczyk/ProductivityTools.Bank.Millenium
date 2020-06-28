@@ -13,12 +13,40 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
         public SeleniumCalls()
         {
+            
+            //BrowserMobProxy proxy = new BrowserMobProxyServer();
+            //proxy.start(0);
+
+            //// get the Selenium proxy object
+            //Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+
+            //// configure it as a desired capability
+            //DesiredCapabilities capabilities = new DesiredCapabilities();
+            //capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+            //// start the browser up
+            //WebDriver driver = new FirefoxDriver(capabilities);
+
+            //// enable more detailed HAR capture, if desired (see CaptureType for the complete list)
+            //proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT);
+
+            //// create a new HAR with the label "yahoo.com"
+            //proxy.newHar("yahoo.com");
+
+            //// open yahoo.com
+            //driver.get("http://yahoo.com");
+
+            //// get the HAR data
+            //Har har = proxy.getHar();
+
+
+
             ChromeOptions options = new ChromeOptions();
-            //options.SetLoggingPreference(LogType.Browser, LogLevel.All);
-            //options.SetLoggingPreference(LogType.Client, LogLevel.All);
-            //options.SetLoggingPreference(LogType.Driver, LogLevel.All);
-            //options.SetLoggingPreference(LogType.Profiler, LogLevel.All);
-            //options.SetLoggingPreference(LogType.Server, LogLevel.All);
+            options.SetLoggingPreference(LogType.Browser, LogLevel.All);
+            options.SetLoggingPreference(LogType.Client, LogLevel.All);
+            options.SetLoggingPreference(LogType.Driver, LogLevel.All);
+            options.SetLoggingPreference(LogType.Profiler, LogLevel.All);
+            options.SetLoggingPreference(LogType.Server, LogLevel.All);
             
             //LoggingPreferences logPrefs = new LoggingPreferences();
             //logPrefs.enable(LogType.BROWSER, Level.ALL);
@@ -79,31 +107,16 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             this.Chrome.FindElement(By.Id("BtnLogin")).Click();
 
             this.Chrome.Url = "https://www.bankmillennium.pl/osobiste2/Accounts/CurrentAccountDetails/Details";
-        }
-
-        public void GetData()
-        {
-            var history = this.Chrome.FindElement(By.LinkText("Historia"));
-            history.Click();
-            Thread.Sleep(2000);
-            var dataRows=this.Chrome.FindElements(By.ClassName("ActionRow"));
-            for (int i = 3; i < dataRows.Count; i++)
+            var x = this.Chrome.Manage().Logs.AvailableLogTypes;
+            var x1 = this.Chrome.Manage().Logs.GetLog("browser");
+            var x2 = this.Chrome.Manage().Logs.GetLog("driver");
+            
+            foreach (var item in x2)
             {
-                var type = dataRows[i].FindElement(By.TagName("a"));
-                //var details = dataRows[i].FindElement(By.ClassName("MNCommand"));
-                type.Click();
-                Thread.Sleep(2000);
-                var link=dataRows[i].FindElement(By.XPath("//*[text()='Typ operacji']"));
-                var parent= link.FindElement(By.XPath("./../.."));
-                var spans = parent.FindElements(By.TagName("span"));
-                var value = spans[1];
-                Console.WriteLine(value.GetAttribute("innerHTML"));
+                Console.WriteLine(item.Message);Console.WriteLine();
             }
-            {
-               
-                
-            }
-
+            var xx3 = this.Chrome as IJavaScriptExecutor;
+            var ajaxIsComplete = (bool)(this.Chrome as IJavaScriptExecutor).ExecuteScript("return jQuery.active == 0");
         }
 
     }
