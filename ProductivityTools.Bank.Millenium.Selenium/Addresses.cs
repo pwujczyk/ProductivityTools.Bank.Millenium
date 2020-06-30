@@ -6,6 +6,6 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 {
     public class Addresses
     {
-        public const string LoginPage = "https://www.bankmillennium.pl/osobiste2/Retail/Login/MulticodeRequest";
+        public const string LoginPage = "https://www.bankmillennium.pl/osobiste2/Retail/Login/PasswordOneRequest";
     }
 }

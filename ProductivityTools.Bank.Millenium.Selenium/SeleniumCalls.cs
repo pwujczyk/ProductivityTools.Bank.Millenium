@@ -35,8 +35,14 @@ namespace ProductivityTools.Bank.Millenium.Selenium
         public void Login(string login, string password, string Pesel)
         {
             this.Chrome.Url = Addresses.LoginPage;
+            Thread.Sleep(2000);
             var loginControl = this.Chrome.FindElement(By.Id("Millekod_txtContent"));
-            loginControl.SendKeys(login);
+            foreach (var item in login)
+            {
+                Thread.Sleep(100);
+                loginControl.SendKeys(item.ToString());
+            }
+
 
             var loginButton = this.Chrome.FindElement(By.Id("BtnLogin"));
             loginButton.Click();
@@ -86,45 +92,29 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             var tags = parent.FindElements(By.TagName(tag));
             foreach (var item in tags)
             {
+                var x = item.GetAttribute("innerHTML");
+                // Console.WriteLine(x);
                 if (item.GetAttribute("innerHTML") == text)
                 {
                     return item;
                 }
             }
-            throw new Exception($"No element with text {text}");
+            return null;
         }
 
         public string GetItem(IWebElement datarow, string name)
         {
-          //  Console.WriteLine("================================");
-            Console.WriteLine(datarow.GetAttribute("innerHTML"));
-           // Console.WriteLine("================================");
 
-            var link = GetElementByInnerText(datarow, "span", "Kwota transakcji");
-           
 
-          //  Console.WriteLine("==================LINK==============");
-            Console.WriteLine(link.GetAttribute("innerHTML"));
-           // Console.WriteLine("=================ENDLINK===============");
+            var link = GetElementByInnerText(datarow, "span", name);
+
+
+
             if (link != null)
             {
-                var parent1 = link.FindElement(By.XPath("./.."));
-               // Console.WriteLine("==================parent1==============");
-                Console.WriteLine(parent1.GetAttribute("innerHTML"));
-               //Console.WriteLine("=================ENDpARENT===============");
-                var parent2 = parent1.FindElement(By.XPath("./.."));
-              //  Console.WriteLine("==================parent2==============");
-                Console.WriteLine(parent2.GetAttribute("innerHTML"));
-               // Console.WriteLine("=================ENDpARENT===============");
-
-               
-
-
+                var parent2 = link.FindElement(By.XPath("./../.."));
                 var spans = parent2.FindElements(By.TagName("span"));
                 var value = spans[1];
-            //    Console.WriteLine("==================value==============");
-                Console.WriteLine(value.GetAttribute("innerHTML"));
-             //   Console.WriteLine("=================ENDvalue===============");
                 var r = value.GetAttribute("innerHTML");
                 return r;
             }
@@ -141,28 +131,19 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             foreach (var item in dataRows)
             {
 
-                //}
-                //for (int i = 3; i < dataRows.Count; i++)
-                //{
-
                 var type = item.FindElement(By.TagName("a"));
-                Console.WriteLine(item.GetAttribute("innerHTML"));
-                //var details = dataRows[i].FindElement(By.ClassName("MNCommand"));
                 type.Click();
 
                 Thread.Sleep(2000);
 
                 var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
-                Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                Console.WriteLine(detailsRow.GetAttribute("innerHTML"));
-                Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                Console.WriteLine(GetItem(detailsRow, "Typ operacji"));
-                // Console.WriteLine(GetItem(detailsRow, "gowania"));
-                //Console.WriteLine(GetItem(detailsRow, "Z rachunku"));
-                //Console.WriteLine(GetItem(detailsRow, "Kwota transakcji"));
-                //Console.WriteLine(GetItem(detailsRow, "Tytuł"));
-                //Console.WriteLine(GetItem(detailsRow, "Na rachunek"));
-                //Console.WriteLine(GetItem(detailsRow, "Odbiorca"));
+                Console.WriteLine("Typ operacji" + GetItem(detailsRow, "Typ operacji"));
+                Console.WriteLine("Data Księgowania" + GetItem(detailsRow, "Data Księgowania"));
+                Console.WriteLine("Z rachunku" + GetItem(detailsRow, "Z rachunku"));
+                Console.WriteLine("Kwota transakcji" + GetItem(detailsRow, "Kwota transakcji"));
+                Console.WriteLine("Tytuł" + GetItem(detailsRow, "Tytuł"));
+                Console.WriteLine("Na rachunek" + GetItem(detailsRow, "Na rachunek"));
+                Console.WriteLine("Odbiorca" + GetItem(detailsRow, "Odbiorca"));
             }
         }
 
