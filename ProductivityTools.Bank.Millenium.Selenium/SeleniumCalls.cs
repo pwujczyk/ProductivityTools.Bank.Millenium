@@ -19,7 +19,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             //options.SetLoggingPreference(LogType.Driver, LogLevel.All);
             //options.SetLoggingPreference(LogType.Profiler, LogLevel.All);
             //options.SetLoggingPreference(LogType.Server, LogLevel.All);
-            
+
             //LoggingPreferences logPrefs = new LoggingPreferences();
             //logPrefs.enable(LogType.BROWSER, Level.ALL);
             //options.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
@@ -81,29 +81,99 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             this.Chrome.Url = "https://www.bankmillennium.pl/osobiste2/Accounts/CurrentAccountDetails/Details";
         }
 
+        private IWebElement GetElementByInnerText(IWebElement parent, string tag, string text)
+        {
+            var tags = parent.FindElements(By.TagName(tag));
+            foreach (var item in tags)
+            {
+                if (item.GetAttribute("innerHTML") == text)
+                {
+                    return item;
+                }
+            }
+            throw new Exception($"No element with text {text}");
+        }
+
+        public string GetItem(IWebElement datarow, string name)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine(datarow.GetAttribute("innerHTML"));
+            Console.WriteLine("================================");
+
+            var link = GetElementByInnerText(datarow, "span", "Kwota transakcji");
+           
+
+            Console.WriteLine("==================LINK==============");
+            Console.WriteLine(link.GetAttribute("innerHTML"));
+            Console.WriteLine("=================ENDLINK===============");
+            if (link != null)
+            {
+                var parent1 = link.FindElement(By.XPath("./.."));
+                Console.WriteLine("==================parent1==============");
+                Console.WriteLine(parent1.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDpARENT===============");
+                var parent2 = parent1.FindElement(By.XPath("./.."));
+                Console.WriteLine("==================parent2==============");
+                Console.WriteLine(parent2.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDpARENT===============");
+                var parent3 = parent2.FindElement(By.XPath("./.."));
+                Console.WriteLine("==================parent3==============");
+                Console.WriteLine(parent3.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDpARENT===============");
+                var parent4 = parent3.FindElement(By.XPath("./.."));
+                Console.WriteLine("==================parent4==============");
+                Console.WriteLine(parent4.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDpARENT===============");
+                var parent5 = parent4.FindElement(By.XPath("./.."));
+                Console.WriteLine("==================parent5==============");
+                Console.WriteLine(parent5.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDpARENT===============");
+
+
+                var spans = parent2.FindElements(By.TagName("span"));
+                var value = spans[1];
+                Console.WriteLine("==================value==============");
+                Console.WriteLine(value.GetAttribute("innerHTML"));
+                Console.WriteLine("=================ENDvalue===============");
+                var r = value.GetAttribute("innerHTML");
+                return r;
+            }
+            return string.Empty;
+        }
+
         public void GetData()
         {
             var history = this.Chrome.FindElement(By.LinkText("Historia"));
             history.Click();
             Thread.Sleep(2000);
-            var dataRows=this.Chrome.FindElements(By.ClassName("ActionRow"));
-            for (int i = 3; i < dataRows.Count; i++)
+            var tabledata = this.Chrome.FindElement(By.ClassName("Table"));
+            var dataRows = tabledata.FindElements(By.ClassName("ActionRow"));
+            foreach (var item in dataRows)
             {
-                var type = dataRows[i].FindElement(By.TagName("a"));
+
+                //}
+                //for (int i = 3; i < dataRows.Count; i++)
+                //{
+
+                var type = item.FindElement(By.TagName("a"));
+                Console.WriteLine(item.GetAttribute("innerHTML"));
                 //var details = dataRows[i].FindElement(By.ClassName("MNCommand"));
                 type.Click();
-                Thread.Sleep(2000);
-                var link=dataRows[i].FindElement(By.XPath("//*[text()='Typ operacji']"));
-                var parent= link.FindElement(By.XPath("./../.."));
-                var spans = parent.FindElements(By.TagName("span"));
-                var value = spans[1];
-                Console.WriteLine(value.GetAttribute("innerHTML"));
-            }
-            {
-               
-                
-            }
 
+                Thread.Sleep(2000);
+
+                var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
+                Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                Console.WriteLine(detailsRow.GetAttribute("innerHTML"));
+                Console.WriteLine("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                Console.WriteLine(GetItem(detailsRow, "Typ operacji"));
+                // Console.WriteLine(GetItem(detailsRow, "gowania"));
+                //Console.WriteLine(GetItem(detailsRow, "Z rachunku"));
+                //Console.WriteLine(GetItem(detailsRow, "Kwota transakcji"));
+                //Console.WriteLine(GetItem(detailsRow, "Tytuł"));
+                //Console.WriteLine(GetItem(detailsRow, "Na rachunek"));
+                //Console.WriteLine(GetItem(detailsRow, "Odbiorca"));
+            }
         }
 
     }
