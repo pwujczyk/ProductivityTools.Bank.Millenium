@@ -96,45 +96,35 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
         public string GetItem(IWebElement datarow, string name)
         {
-            Console.WriteLine("================================");
+          //  Console.WriteLine("================================");
             Console.WriteLine(datarow.GetAttribute("innerHTML"));
-            Console.WriteLine("================================");
+           // Console.WriteLine("================================");
 
             var link = GetElementByInnerText(datarow, "span", "Kwota transakcji");
            
 
-            Console.WriteLine("==================LINK==============");
+          //  Console.WriteLine("==================LINK==============");
             Console.WriteLine(link.GetAttribute("innerHTML"));
-            Console.WriteLine("=================ENDLINK===============");
+           // Console.WriteLine("=================ENDLINK===============");
             if (link != null)
             {
                 var parent1 = link.FindElement(By.XPath("./.."));
-                Console.WriteLine("==================parent1==============");
+               // Console.WriteLine("==================parent1==============");
                 Console.WriteLine(parent1.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDpARENT===============");
+               //Console.WriteLine("=================ENDpARENT===============");
                 var parent2 = parent1.FindElement(By.XPath("./.."));
-                Console.WriteLine("==================parent2==============");
+              //  Console.WriteLine("==================parent2==============");
                 Console.WriteLine(parent2.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDpARENT===============");
-                var parent3 = parent2.FindElement(By.XPath("./.."));
-                Console.WriteLine("==================parent3==============");
-                Console.WriteLine(parent3.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDpARENT===============");
-                var parent4 = parent3.FindElement(By.XPath("./.."));
-                Console.WriteLine("==================parent4==============");
-                Console.WriteLine(parent4.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDpARENT===============");
-                var parent5 = parent4.FindElement(By.XPath("./.."));
-                Console.WriteLine("==================parent5==============");
-                Console.WriteLine(parent5.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDpARENT===============");
+               // Console.WriteLine("=================ENDpARENT===============");
+
+               
 
 
                 var spans = parent2.FindElements(By.TagName("span"));
                 var value = spans[1];
-                Console.WriteLine("==================value==============");
+            //    Console.WriteLine("==================value==============");
                 Console.WriteLine(value.GetAttribute("innerHTML"));
-                Console.WriteLine("=================ENDvalue===============");
+             //   Console.WriteLine("=================ENDvalue===============");
                 var r = value.GetAttribute("innerHTML");
                 return r;
             }
