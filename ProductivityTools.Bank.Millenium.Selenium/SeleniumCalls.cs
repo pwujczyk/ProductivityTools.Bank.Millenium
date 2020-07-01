@@ -132,6 +132,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             var dataRows = tabledata.FindElements(By.ClassName("ActionRow"));
             foreach (var item in dataRows)
             {
+                var augmentTransaction = item.FindElement(By.Id("AugmentTransactionId"));
+                var augmentTransactionId = augmentTransaction.GetAttribute("innerHTML");
 
                 var type = item.FindElement(By.TagName("a"));
                 type.Click();
@@ -139,18 +141,30 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 Thread.Sleep(2000);
                 var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
 
-                Transaction t = new Transaction();
-                FillItem(t,detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
+                Transaction t = new Transaction(augmentTransactionId);
+                
+                FillItem(t, detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
                 FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
                 FillItem(t, detailsRow, "Z rachunku", (t, s) => { t.SourceAccount = s; });
-                FillItem(t, detailsRow, "Kwota transakcji", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN","")); });
+                FillItem(t, detailsRow, "Kwota transakcji", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN", "")); });
                 FillItem(t, detailsRow, "Tytuł", (t, s) => { t.Title = s; });
-                FillItem(t, detailsRow, "Na rachunek", (t, s) => { t.DestAccount= s; });
+                FillItem(t, detailsRow, "Na rachunek", (t, s) => { t.DestAccount = s; });
 
                 FillItem(t, detailsRow, "Bank zleceniodawcy", (t, s) => { t.SourceBank = s; });
-                FillItem(t, detailsRow, "Zleceniodawca", (t, s) => { t.Sender = s; });
-                FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.Receipment= s; });
-                //FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.= s; });
+                if (t.Type == "PŁATNOŚĆ BLIK W INTERNECIE")
+                {
+                    FillItem(t, detailsRow, "Płacący", (t, s) => { t.Sender = s; });
+                }
+                else
+                {
+                    FillItem(t, detailsRow, "Zleceniodawca", (t, s) => { t.Sender = s; });
+                }
+                FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.Receipment = s; });
+                FillItem(t, detailsRow, "Miejsce transakcji", (t, s) => { t.TransactionPlace = s; });
+
+
+                FillItem(t, detailsRow, "Numer karty", (t, s) => { t.CardNumber = s; });
+                FillItem(t, detailsRow, "Posiadacz karty", (t, s) => { t.CardOwner = s; });
 
             }
         }

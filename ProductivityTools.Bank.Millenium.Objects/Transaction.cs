@@ -4,6 +4,13 @@ namespace ProductivityTools.Bank.Millenium.Objects
 {
     public class Transaction
     {
+        public Transaction(string augmentTransactionId)
+        {
+            this.AugmentTransactionId = AugmentTransactionId;
+        }
+
+        public string AugmentTransactionId {get;set;}
+
         public string Bank { get; set; }
         public string AccountName { get; set; }
         public DateTime Date { get; set; }
@@ -17,5 +24,14 @@ namespace ProductivityTools.Bank.Millenium.Objects
         public string SourceBank { get; set; }
         public string Sender { get; set; }
         public string Receipment { get; set; }
+
+        //blik
+        public string TransactionPlace { get; set; }
+        //
+
+        //karta
+        public string CardNumber{ get; set; }
+        public string CardOwner { get; set; }
+
     }
 }
