@@ -127,13 +127,16 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             return string.Empty;
         }
 
-        public void GetBasicData()
+        public BasicData GetBasicData()
         {
+            var result = new BasicData();
+            
             var header = this.Chrome.FindElement(By.Id("AccountDetailsHeaderPartial"));
-            var x1 = GetItem(header, "Saldo bieżące:","span", 2);
-            var x2 = GetItem(header, "Dostępne środki:", "span", 2);
-            var x3 = GetItem(header, "Zablokowane środki:","a",0);
-            var x4 = GetItem(header, "Transakcje przychodzące:", "span", 2);
+            result.Saldo= GetItem(header, "Saldo bieżące:","span", 2);
+            result.AvailiableFunds= GetItem(header, "Dostępne środki:", "span", 2);
+            result.BlockedFunds= GetItem(header, "Zablokowane środki:","a",0);
+            result.IncomingTransfers= GetItem(header, "Transakcje przychodzące:", "span", 2);
+            return result;
         }
 
         public void GetTransactions()

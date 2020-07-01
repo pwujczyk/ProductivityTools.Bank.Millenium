@@ -10,5 +10,6 @@ namespace ProductivityTools.Bank.Millenium.Objects
         public string AccountName { get; set; }
         public DateTime Date { get; set; }
         public decimal Value { get; set; }
+        public string Saldo { get; set; }
     }
 }

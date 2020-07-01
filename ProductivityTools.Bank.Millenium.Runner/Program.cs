@@ -2,6 +2,10 @@
 using System;
 using Microsoft.Extensions.Configuration;
 using ProductivityTools.MasterConfiguration;
+using Microsoft.Extensions.DependencyInjection;
+using ProductivityTools.Bank.Millenium.Database;
+using ProductivityTools.Bank.Millenium.Commands;
+using ProductivityTools.Bank.Millenium.Selenium;
 
 namespace ProductivityTools.Bank.Millenium.Runner
 {
@@ -28,7 +32,18 @@ namespace ProductivityTools.Bank.Millenium.Runner
             var x = configuration.Get<Settings>();
             Console.WriteLine(settings);
 
-            MilleniumApplication app = new MilleniumApplication();
+
+            var serviceProvider = new ServiceCollection().AddLogging()
+          .AddSingleton<MilleniumContext>()
+          .AddSingleton<MilleniumApplication>()//remove references to projects
+          .AddSingleton<BMCommands>()
+          .AddSingleton<SeleniumCalls>()
+          .AddSingleton<MilleniumContext>()
+          .AddSingleton<IConfiguration>(configuration)
+          .BuildServiceProvider();
+
+            var app = serviceProvider.GetService<MilleniumApplication>();
+            //MilleniumApplication app = new MilleniumApplication();
             app.Run(x.Login, x.Password, x.Pesel);
             Console.ReadLine();
         }

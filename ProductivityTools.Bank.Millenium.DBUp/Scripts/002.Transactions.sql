@@ -20,7 +20,8 @@
 
         TransactionPlace VARCHAR(100),
 
-        
         CardNumber VARCHAR(100),
         CardOwner VARCHAR(100),
+
+        CONSTRAINT PK_Transaction PRIMARY KEY (TransactionId)
 )
