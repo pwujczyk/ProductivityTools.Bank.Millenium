@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProductivityTools.Bank.Millenium.Objects
 {
-    class AccountSnapshot
+    public class AccountSnapshot
     {
         public string Bank { get; set; }
         public string AccountName { get; set; }
