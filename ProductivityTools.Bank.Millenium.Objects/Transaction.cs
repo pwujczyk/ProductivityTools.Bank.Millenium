@@ -14,5 +14,8 @@ namespace ProductivityTools.Bank.Millenium.Objects
         public string Type { get; set; }
         public string Title { get; set; }
 
+        public string SourceBank { get; set; }
+        public string Sender { get; set; }
+        public string Receipment { get; set; }
     }
 }

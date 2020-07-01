@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using ProductivityTools.Bank.Millenium.Objects;
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -93,8 +94,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             foreach (var item in tags)
             {
                 var x = item.GetAttribute("innerHTML");
-                // Console.WriteLine(x);
-                if (item.GetAttribute("innerHTML") == text)
+                Console.WriteLine(x);
+                if (x == text)
                 {
                     return item;
                 }
@@ -102,14 +103,15 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             return null;
         }
 
+        private void FillItem(Transaction transaction, IWebElement datarow, string name, Action<Transaction, string> setter)
+        {
+            string value = GetItem(datarow, name);
+            setter(transaction, value);
+        }
+
         public string GetItem(IWebElement datarow, string name)
         {
-
-
             var link = GetElementByInnerText(datarow, "span", name);
-
-
-
             if (link != null)
             {
                 var parent2 = link.FindElement(By.XPath("./../.."));
@@ -135,15 +137,21 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 type.Click();
 
                 Thread.Sleep(2000);
-
                 var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
-                Console.WriteLine("Typ operacji" + GetItem(detailsRow, "Typ operacji"));
-                Console.WriteLine("Data Księgowania" + GetItem(detailsRow, "Data Księgowania"));
-                Console.WriteLine("Z rachunku" + GetItem(detailsRow, "Z rachunku"));
-                Console.WriteLine("Kwota transakcji" + GetItem(detailsRow, "Kwota transakcji"));
-                Console.WriteLine("Tytuł" + GetItem(detailsRow, "Tytuł"));
-                Console.WriteLine("Na rachunek" + GetItem(detailsRow, "Na rachunek"));
-                Console.WriteLine("Odbiorca" + GetItem(detailsRow, "Odbiorca"));
+
+                Transaction t = new Transaction();
+                FillItem(t,detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
+                FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
+                FillItem(t, detailsRow, "Z rachunku", (t, s) => { t.SourceAccount = s; });
+                FillItem(t, detailsRow, "Kwota transakcji", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN","")); });
+                FillItem(t, detailsRow, "Tytuł", (t, s) => { t.Title = s; });
+                FillItem(t, detailsRow, "Na rachunek", (t, s) => { t.DestAccount= s; });
+
+                FillItem(t, detailsRow, "Bank zleceniodawcy", (t, s) => { t.SourceBank = s; });
+                FillItem(t, detailsRow, "Zleceniodawca", (t, s) => { t.Sender = s; });
+                FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.Receipment= s; });
+                //FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.= s; });
+
             }
         }
 
