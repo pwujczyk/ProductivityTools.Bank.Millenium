@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 using ProductivityTools.Bank.Millenium.Objects;
 using System;
+using System.Data;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -33,10 +34,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             this.Chrome = new ChromeDriver(options);
         }
 
-        public void Login(string login, string password, string Pesel)
+        private void FillMillekode(string login)
         {
-            this.Chrome.Url = Addresses.LoginPage;
-            Thread.Sleep(2000);
             var loginControl = this.Chrome.FindElement(By.Id("Millekod_txtContent"));
             foreach (var item in login)
             {
@@ -47,31 +46,25 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
             var loginButton = this.Chrome.FindElement(By.Id("BtnLogin"));
             loginButton.Click();
-            Thread.Sleep(2000);
+        }
+
+        private void FillPassword(string password)
+        {
             var passwordControl = this.Chrome.FindElement(By.Id("PasswordOne_txtContent"));
             passwordControl.SendKeys(password);
 
+        }
+
+        private void FillPESEL(string Pesel)
+        {
             bool[] peselInputs = new bool[11];
             Func<string, bool> peselEnabled = (id) =>
-               {
-                   var peselControl = this.Chrome.FindElement(By.Id(id));
-                   var disabled = peselControl.GetAttribute("disabled");
-                   return !(disabled == "true");
-               };
-            ;
+            {
+                var peselControl = this.Chrome.FindElement(By.Id(id));
+                var disabled = peselControl.GetAttribute("disabled");
+                return !(disabled == "true");
+            };
 
-
-            //peselInputs[0] = peselDisabled("PESEL_0_txtContent");
-            //peselInputs[1] = peselDisabled("PESEL_1_txtContent");
-            //peselInputs[2] = peselDisabled("PESEL_2_txtContent");
-            //peselInputs[3] = peselDisabled("PESEL_3_txtContent");
-            //peselInputs[4] = peselDisabled("PESEL_4_txtContent");
-            //peselInputs[5] = peselDisabled("PESEL_5_txtContent");
-            //peselInputs[6] = peselDisabled("PESEL_6_txtContent");
-            //peselInputs[7] = peselDisabled("PESEL_7_txtContent");
-            //peselInputs[8] = peselDisabled("PESEL_8_txtContent");
-            //peselInputs[9] = peselDisabled("PESEL_9_txtContent");
-            //peselInputs[10] = peselDisabled("PESEL_10_txtContent");
 
             for (int i = 0; i < peselInputs.Length; i++)
             {
@@ -84,7 +77,16 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             }
 
             this.Chrome.FindElement(By.Id("BtnLogin")).Click();
+        }
 
+        public void Login(string login, string password, string Pesel)
+        {
+            this.Chrome.Url = Addresses.LoginPage;
+            Thread.Sleep(2000);
+            FillMillekode(login);
+            FillPassword(password);
+            Thread.Sleep(2000);
+            FillPESEL(Pesel);
             this.Chrome.Url = "https://www.bankmillennium.pl/osobiste2/Accounts/CurrentAccountDetails/Details";
         }
 
@@ -109,21 +111,32 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             setter(transaction, value);
         }
 
-        public string GetItem(IWebElement datarow, string name)
+
+
+        private string GetItem(IWebElement datarow, string name, string tagname="span", int depth = 1)
         {
             var link = GetElementByInnerText(datarow, "span", name);
             if (link != null)
             {
                 var parent2 = link.FindElement(By.XPath("./../.."));
-                var spans = parent2.FindElements(By.TagName("span"));
-                var value = spans[1];
+                var spans = parent2.FindElements(By.TagName(tagname));
+                var value = spans[depth];
                 var r = value.GetAttribute("innerHTML");
                 return r;
             }
             return string.Empty;
         }
 
-        public void GetData()
+        public void GetBasicData()
+        {
+            var header = this.Chrome.FindElement(By.Id("AccountDetailsHeaderPartial"));
+            var x1 = GetItem(header, "Saldo bieżące:","span", 2);
+            var x2 = GetItem(header, "Dostępne środki:", "span", 2);
+            var x3 = GetItem(header, "Zablokowane środki:","a",0);
+            var x4 = GetItem(header, "Transakcje przychodzące:", "span", 2);
+        }
+
+        public void GetTransactions()
         {
             var history = this.Chrome.FindElement(By.LinkText("Historia"));
             history.Click();
@@ -142,7 +155,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
 
                 Transaction t = new Transaction(augmentTransactionId);
-                
+
                 FillItem(t, detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
                 FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
                 FillItem(t, detailsRow, "Z rachunku", (t, s) => { t.SourceAccount = s; });
@@ -162,12 +175,9 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 FillItem(t, detailsRow, "Odbiorca", (t, s) => { t.Receipment = s; });
                 FillItem(t, detailsRow, "Miejsce transakcji", (t, s) => { t.TransactionPlace = s; });
 
-
                 FillItem(t, detailsRow, "Numer karty", (t, s) => { t.CardNumber = s; });
                 FillItem(t, detailsRow, "Posiadacz karty", (t, s) => { t.CardOwner = s; });
-
             }
         }
-
     }
 }
