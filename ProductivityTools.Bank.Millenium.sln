@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Mill
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.MasterConfiguration", "..\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj", "{549ED77F-9C95-44D1-8541-FA13E1624BB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.Objects", "ProductivityTools.Bank.Millenium.Objects\ProductivityTools.Bank.Millenium.Objects.csproj", "{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Millenium.Objects", "ProductivityTools.Bank.Millenium.Objects\ProductivityTools.Bank.Millenium.Objects.csproj", "{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.DBUp", "ProductivityTools.Bank.Millenium.DBUp\ProductivityTools.Bank.Millenium.DBUp.csproj", "{CB734383-2F7C-4CB9-AA18-ED77A1C99726}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
