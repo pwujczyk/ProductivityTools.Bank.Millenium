@@ -5,4 +5,21 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Scripts\001.Schema.sql" />
+    <None Remove="Scripts\002.Transactions.sql" />
+    <None Remove="Scripts\003.BasicData.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Scripts\001.Schema.sql" />
+    <EmbeddedResource Include="Scripts\003.BasicData.sql" />
+    <EmbeddedResource Include="Scripts\002.Transactions.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="dbup-core" Version="4.4.0" />
+    <PackageReference Include="dbup-sqlserver" Version="4.4.0" />
+  </ItemGroup>
+
 </Project>
