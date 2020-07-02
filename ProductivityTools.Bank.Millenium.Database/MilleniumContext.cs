@@ -16,7 +16,7 @@ namespace ProductivityTools.Bank.Millenium.Database
             this.configuration = configuration;
         }
 
-        public DbSet<o.Transaction> Transactions { get; set; }
+        //public DbSet<o.Transaction> Transactions { get; set; }
         public DbSet<o.BasicData> BasicData { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,7 +29,7 @@ namespace ProductivityTools.Bank.Millenium.Database
         {
             modelBuilder.HasDefaultSchema("bm");
             //modelBuilder.Entity<o.Transaction>().HasKey(x => x.TransactionId);
-            //modelBuilder.Entity<o.BasicData>().HasKey(x => x.TransactionId);
+            modelBuilder.Entity<o.BasicData>().HasKey(x => x.BasicDataId);
 
             base.OnModelCreating(modelBuilder);
         }

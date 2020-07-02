@@ -6,9 +6,10 @@ namespace ProductivityTools.Bank.Millenium.Objects
 {
     public class BasicData
     {
-        public string Saldo { get; set; }
-        public string AvailiableFunds { get; set; }
-        public string BlockedFunds { get; set; }
-        public string IncomingTransfers { get; set; }
+        public int BasicDataId { get; set; }
+        public decimal Saldo { get; set; }
+        public decimal AvailiableFunds { get; set; }
+        public decimal BlockedFunds { get; set; }
+        public decimal IncomingTransfers { get; set; }
     }
 }

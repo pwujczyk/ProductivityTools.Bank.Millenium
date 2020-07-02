@@ -4,6 +4,7 @@ using OpenQA.Selenium.Remote;
 using ProductivityTools.Bank.Millenium.Objects;
 using System;
 using System.Data;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -34,7 +35,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             this.Chrome = new ChromeDriver(options);
         }
 
-        private void FillMillekode(string login)
+        private bool FillMillekode(string login)
         {
             var loginControl = this.Chrome.FindElement(By.Id("Millekod_txtContent"));
             foreach (var item in login)
@@ -43,9 +44,17 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 loginControl.SendKeys(item.ToString());
             }
 
-
             var loginButton = this.Chrome.FindElement(By.Id("BtnLogin"));
             loginButton.Click();
+            var passwordControl = this.Chrome.FindElements(By.Id("PasswordOne_txtContent"));
+            if (passwordControl.Count>0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void FillPassword(string password)
@@ -83,7 +92,10 @@ namespace ProductivityTools.Bank.Millenium.Selenium
         {
             this.Chrome.Url = Addresses.LoginPage;
             Thread.Sleep(2000);
-            FillMillekode(login);
+            while (FillMillekode(login)==false)
+            {
+                Thread.Sleep(1000);
+            }
             FillPassword(password);
             Thread.Sleep(2000);
             FillPESEL(Pesel);
@@ -113,7 +125,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
 
 
-        private string GetItem(IWebElement datarow, string name, string tagname="span", int depth = 1)
+        private string GetItem(IWebElement datarow, string name, string tagname = "span", int depth = 1)
         {
             var link = GetElementByInnerText(datarow, "span", name);
             if (link != null)
@@ -130,12 +142,19 @@ namespace ProductivityTools.Bank.Millenium.Selenium
         public BasicData GetBasicData()
         {
             var result = new BasicData();
-            
+
+            Func<string, decimal> parse = (s) =>
+               {
+                   string s1 = new string(s.Where(c => char.IsDigit(c) || c==',').ToArray());
+                   var r = Decimal.Parse(s1.Replace('.',','));
+                   return r;
+               };
+
             var header = this.Chrome.FindElement(By.Id("AccountDetailsHeaderPartial"));
-            result.Saldo= GetItem(header, "Saldo bieżące:","span", 2);
-            result.AvailiableFunds= GetItem(header, "Dostępne środki:", "span", 2);
-            result.BlockedFunds= GetItem(header, "Zablokowane środki:","a",0);
-            result.IncomingTransfers= GetItem(header, "Transakcje przychodzące:", "span", 2);
+            result.Saldo = parse(GetItem(header, "Saldo bieżące:", "span", 2));
+            result.AvailiableFunds = parse(GetItem(header, "Dostępne środki:", "span", 2));
+            result.BlockedFunds = parse(GetItem(header, "Zablokowane środki:", "a", 0));
+            result.IncomingTransfers = parse(GetItem(header, "Transakcje przychodzące:", "span", 2));
             return result;
         }
 
