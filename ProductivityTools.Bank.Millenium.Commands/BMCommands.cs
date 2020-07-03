@@ -30,8 +30,7 @@ namespace ProductivityTools.Bank.Millenium.Commands
             else
             {
                 basicData.BasicDataId = currentRecord.BasicDataId;
-                this.Context.Entry(basicData).CurrentValues.SetValues(basicData);
-                this.Context.Attach(basicData);
+                this.Context.Update(basicData);
             }
             this.Context.SaveChanges();
         }

@@ -44,6 +44,12 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 loginControl.SendKeys(item.ToString());
             }
 
+            var sessionExpired = this.Chrome.FindElements(By.Id("left-side-modal-panel_Content"));
+            if (sessionExpired.Count>0 && sessionExpired[0].Displayed)
+            {
+                sessionExpired[0].Click();
+            }
+
             var loginButton = this.Chrome.FindElement(By.Id("BtnLogin"));
             loginButton.Click();
             var passwordControl = this.Chrome.FindElements(By.Id("PasswordOne_txtContent"));
