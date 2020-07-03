@@ -40,6 +40,7 @@ namespace ProductivityTools.Bank.Millenium.Runner
           .AddSingleton<SeleniumCalls>()
           .AddSingleton<MilleniumContext>()
           .AddSingleton<IConfiguration>(configuration)
+          .AddSingleton<ProductivityTools.DateTimeTools.IDateTimePT, ProductivityTools.DateTimeTools.DateTimePT>()
           .BuildServiceProvider();
 
             var app = serviceProvider.GetService<MilleniumApplication>();
