@@ -2,6 +2,7 @@
 using ProductivityTools.Bank.Millenium.Objects;
 using ProductivityTools.Bank.Millenium.Selenium;
 using System;
+using System.Collections.Generic;
 
 namespace ProductivityTools.Bank.Millenium.App
 {
@@ -22,7 +23,8 @@ namespace ProductivityTools.Bank.Millenium.App
             seleniumCalls.Login(login, password, pesel);
             BasicData basicData= seleniumCalls.GetBasicData();
             BMCommands.SaveBasicData(basicData);
-            //calls.GetTransactions();
+            List<Transaction> transactions=seleniumCalls.GetTransactions();
+            BMCommands.SaveTransactions(basicData);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace ProductivityTools.Bank.Millenium.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("bm");
-            //modelBuilder.Entity<o.Transaction>().HasKey(x => x.TransactionId);
+            modelBuilder.Entity<o.Transaction>().HasKey(x => x.TransactionId);
             modelBuilder.Entity<o.BasicData>().HasKey(x => x.BasicDataId);
 
             base.OnModelCreating(modelBuilder);

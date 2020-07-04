@@ -34,5 +34,10 @@ namespace ProductivityTools.Bank.Millenium.Commands
             }
             this.Context.SaveChanges();
         }
+
+        public void SaveTransactions(BasicData basicData)
+        {
+           
+        }
     }
 }

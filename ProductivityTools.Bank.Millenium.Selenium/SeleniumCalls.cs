@@ -1,8 +1,10 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using ProductivityTools.Bank.Millenium.Objects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -164,8 +166,9 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             return result;
         }
 
-        public void GetTransactions()
+        public List<Transaction> GetTransactions()
         {
+            var result = new List<Transaction>();
             var history = this.Chrome.FindElement(By.LinkText("Historia"));
             history.Click();
             Thread.Sleep(2000);
@@ -177,12 +180,28 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 var augmentTransactionId = augmentTransaction.GetAttribute("innerHTML");
 
                 var type = item.FindElement(By.TagName("a"));
+                Console.WriteLine("WTF");
+                Console.WriteLine(type.GetAttribute("innerHTML"));
+                //Actions actions = new Actions(this.Chrome);
+                //actions.MoveToElement(type);
+                //actions.Perform();
+                //  var elem = driver.FindElement(By.ClassName("something"));
+                /// Chrome.ExecuteScript("arguments[0].scrollIntoView(true);", type);
+                //if (SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(type)==false)
+                //{
+
+                //}
+
+                var js = (IJavaScriptExecutor)this.Chrome;
+                js.ExecuteScript($"window.scrollTo({0}, {type.Location.Y - 200 })");
                 type.Click();
+
 
                 Thread.Sleep(2000);
                 var detailsRow = item.FindElement(By.XPath($"./following::tr[1]"));
 
                 Transaction t = new Transaction(augmentTransactionId);
+                result.Add(t);
 
                 FillItem(t, detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
                 FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
@@ -206,6 +225,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 FillItem(t, detailsRow, "Numer karty", (t, s) => { t.CardNumber = s; });
                 FillItem(t, detailsRow, "Posiadacz karty", (t, s) => { t.CardOwner = s; });
             }
+
+            return result;
         }
     }
 }
