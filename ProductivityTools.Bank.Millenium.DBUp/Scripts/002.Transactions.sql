@@ -2,7 +2,7 @@
 (
 	    TransactionId INT IDENTITY(1,1),
 
-	    AugmentTransactionId VARCHAR(20),
+	    AugmentTransactionId VARCHAR(30),
 
         Bank VARCHAR(100),
         AccountName VARCHAR(100),

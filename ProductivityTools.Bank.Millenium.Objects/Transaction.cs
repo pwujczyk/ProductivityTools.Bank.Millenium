@@ -6,7 +6,7 @@ namespace ProductivityTools.Bank.Millenium.Objects
     {
         public Transaction(string augmentTransactionId)
         {
-            this.AugmentTransactionId = augmentTransactionId;
+            this.AugmentTransactionId = augmentTransactionId.Trim();
         }
 
         public int TransactionId { get; set; }

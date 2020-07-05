@@ -153,7 +153,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
             Func<string, decimal> parse = (s) =>
                {
-                   string s1 = new string(s.Where(c => char.IsDigit(c) || c==',').ToArray());
+                   string s1 = new string(s.Where(c => char.IsDigit(c) || c==',' || c == '.').ToArray());
                    var r = Decimal.Parse(s1.Replace('.',','));
                    return r;
                };
@@ -227,6 +227,6 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             }
 
             return result;
-        }
+            }
     }
 }
