@@ -180,17 +180,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 var augmentTransactionId = augmentTransaction.GetAttribute("innerHTML");
 
                 var type = item.FindElement(By.TagName("a"));
-                Console.WriteLine("WTF");
                 Console.WriteLine(type.GetAttribute("innerHTML"));
-                //Actions actions = new Actions(this.Chrome);
-                //actions.MoveToElement(type);
-                //actions.Perform();
-                //  var elem = driver.FindElement(By.ClassName("something"));
-                /// Chrome.ExecuteScript("arguments[0].scrollIntoView(true);", type);
-                //if (SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(type)==false)
-                //{
-
-                //}
 
                 var js = (IJavaScriptExecutor)this.Chrome;
                 js.ExecuteScript($"window.scrollTo({0}, {type.Location.Y - 200 })");
@@ -206,7 +196,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 FillItem(t, detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
                 FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
                 FillItem(t, detailsRow, "Z rachunku", (t, s) => { t.SourceAccount = s; });
-                FillItem(t, detailsRow, "Kwota transakcji", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN", "")); });
+                FillItem(t, detailsRow, "Kwota zaksięgowana", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN", "")); });
                 FillItem(t, detailsRow, "Tytuł", (t, s) => { t.Title = s; });
                 FillItem(t, detailsRow, "Na rachunek", (t, s) => { t.DestAccount = s; });
 
@@ -224,8 +214,17 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
                 FillItem(t, detailsRow, "Numer karty", (t, s) => { t.CardNumber = s; });
                 FillItem(t, detailsRow, "Posiadacz karty", (t, s) => { t.CardOwner = s; });
+
+                var description = GetElementByInnerText(detailsRow, "div", "Opis i tagi");
+                var descriptionclick=description.FindElement(By.XPath($".."));
+                descriptionclick.Click();
+
+                var descriptoinText = detailsRow.FindElement(By.Id("AugmentNote_txtContent"));
+                t.Description=descriptoinText.GetAttribute("value");
+
             }
 
+            
             return result;
             }
     }

@@ -34,5 +34,7 @@ namespace ProductivityTools.Bank.Millenium.Objects
         public string CardNumber{ get; set; }
         public string CardOwner { get; set; }
 
+        public string Description { get; set; }
+
     }
 }

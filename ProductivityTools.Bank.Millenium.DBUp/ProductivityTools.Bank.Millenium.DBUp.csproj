@@ -9,10 +9,12 @@
     <None Remove="Scripts\001.Schema.sql" />
     <None Remove="Scripts\002.Transactions.sql" />
     <None Remove="Scripts\003.BasicData.sql" />
+    <None Remove="Scripts\003.DescriptionTransaction.sql" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Scripts\001.Schema.sql" />
+    <EmbeddedResource Include="Scripts\003.DescriptionTransaction.sql" />
     <EmbeddedResource Include="Scripts\003.BasicData.sql" />
     <EmbeddedResource Include="Scripts\002.Transactions.sql" />
   </ItemGroup>
