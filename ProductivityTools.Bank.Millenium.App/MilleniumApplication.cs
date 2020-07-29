@@ -24,7 +24,8 @@ namespace ProductivityTools.Bank.Millenium.App
             BasicData basicData= seleniumCalls.GetBasicData();
             BMCommands.SaveBasicData(basicData);
             List<Transaction> transactions=seleniumCalls.GetTransactions();
-             BMCommands.SaveTransactions(transactions);
+             
+            BMCommands.SaveTransactions(transactions);
         }
     }
 }
