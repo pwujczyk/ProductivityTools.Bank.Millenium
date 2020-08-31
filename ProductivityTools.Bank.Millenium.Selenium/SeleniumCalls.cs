@@ -47,7 +47,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             }
 
             var sessionExpired = this.Chrome.FindElements(By.Id("left-side-modal-panel_Content"));
-            if (sessionExpired.Count>0 && sessionExpired[0].Displayed)
+            if (sessionExpired.Count > 0 && sessionExpired[0].Displayed)
             {
                 sessionExpired[0].Click();
             }
@@ -55,7 +55,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             var loginButton = this.Chrome.FindElement(By.Id("BtnLogin"));
             loginButton.Click();
             var passwordControl = this.Chrome.FindElements(By.Id("PasswordOne_txtContent"));
-            if (passwordControl.Count>0)
+            if (passwordControl.Count > 0)
             {
                 return true;
             }
@@ -100,7 +100,7 @@ namespace ProductivityTools.Bank.Millenium.Selenium
         {
             this.Chrome.Url = Addresses.LoginPage;
             Thread.Sleep(2000);
-            while (FillMillekode(login)==false)
+            while (FillMillekode(login) == false)
             {
                 Thread.Sleep(1000);
             }
@@ -153,8 +153,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
 
             Func<string, decimal> parse = (s) =>
                {
-                   string s1 = new string(s.Where(c => char.IsDigit(c) || c==',' || c == '.').ToArray());
-                   var r = Decimal.Parse(s1.Replace('.',','));
+                   string s1 = new string(s.Where(c => char.IsDigit(c) || c == ',' || c == '.').ToArray());
+                   var r = Decimal.Parse(s1.Replace('.', ','));
                    return r;
                };
 
@@ -196,7 +196,23 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 FillItem(t, detailsRow, "Typ operacji", (t, s) => { t.Type = s; });
                 FillItem(t, detailsRow, "Data księgowania", (t, s) => { t.Date = DateTime.Parse(s); });
                 FillItem(t, detailsRow, "Z rachunku", (t, s) => { t.SourceAccount = s; });
-                FillItem(t, detailsRow, "Kwota zaksięgowana", (t, s) => { t.Value = Decimal.Parse(s.Replace("PLN", "")); });
+                FillItem(t, detailsRow, "Kwota zaksięgowana", (t, s) =>
+                {
+                    if (!string.IsNullOrEmpty(s))
+                    {
+                        t.Value = Decimal.Parse(s.Replace("PLN", ""));
+                    }
+                });
+                FillItem(t, detailsRow, "Kwota", (t, s) =>
+                {
+                    if (!string.IsNullOrEmpty(s))
+                    {
+                        t.Value = Decimal.Parse(s.Replace("PLN", ""));
+                    }
+                });
+
+
+
                 FillItem(t, detailsRow, "Tytuł", (t, s) => { t.Title = s; });
                 FillItem(t, detailsRow, "Na rachunek", (t, s) => { t.DestAccount = s; });
 
@@ -216,16 +232,16 @@ namespace ProductivityTools.Bank.Millenium.Selenium
                 FillItem(t, detailsRow, "Posiadacz karty", (t, s) => { t.CardOwner = s; });
 
                 var description = GetElementByInnerText(detailsRow, "div", "Opis i tagi");
-                var descriptionclick=description.FindElement(By.XPath($".."));
+                var descriptionclick = description.FindElement(By.XPath($".."));
                 descriptionclick.Click();
 
                 var descriptoinText = detailsRow.FindElement(By.Id("AugmentNote_txtContent"));
-                t.Description=descriptoinText.GetAttribute("value");
+                t.Description = descriptoinText.GetAttribute("value");
 
             }
 
-            
+
             return result;
-            }
+        }
     }
 }
