@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
-using ProductivityTools.Bank.Millenium.Objects;
+using ProductivityTools.BankAccounts.Contract;
 using System;
 using System.Collections.Generic;
 using System.Data;

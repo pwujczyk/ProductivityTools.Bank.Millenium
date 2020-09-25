@@ -11,13 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Mill
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.MasterConfiguration", "..\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj", "{549ED77F-9C95-44D1-8541-FA13E1624BB8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductivityTools.Bank.Millenium.Objects", "ProductivityTools.Bank.Millenium.Objects\ProductivityTools.Bank.Millenium.Objects.csproj", "{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.DBUp", "ProductivityTools.Bank.Millenium.DBUp\ProductivityTools.Bank.Millenium.DBUp.csproj", "{CB734383-2F7C-4CB9-AA18-ED77A1C99726}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.Database", "ProductivityTools.Bank.Millenium.Database\ProductivityTools.Bank.Millenium.Database.csproj", "{BBDF8990-94F8-4F13-BDA8-C52C1158F1C1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.Commands", "ProductivityTools.Bank.Millenium.Commands\ProductivityTools.Bank.Millenium.Commands.csproj", "{2F105944-9440-4225-9C6C-F931C81EA587}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductivityTools.Bank.Millenium.Caller", "ProductivityTools.Bank.Millenium.Caller\ProductivityTools.Bank.Millenium.Caller.csproj", "{2D5F4B69-CE0D-4E50-AB12-680D674260AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,22 +35,10 @@ Global
 		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{549ED77F-9C95-44D1-8541-FA13E1624BB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B27CDD6-F70F-4FCD-BEC0-C55FD9841798}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB734383-2F7C-4CB9-AA18-ED77A1C99726}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBDF8990-94F8-4F13-BDA8-C52C1158F1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBDF8990-94F8-4F13-BDA8-C52C1158F1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBDF8990-94F8-4F13-BDA8-C52C1158F1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBDF8990-94F8-4F13-BDA8-C52C1158F1C1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F105944-9440-4225-9C6C-F931C81EA587}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F105944-9440-4225-9C6C-F931C81EA587}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F105944-9440-4225-9C6C-F931C81EA587}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F105944-9440-4225-9C6C-F931C81EA587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D5F4B69-CE0D-4E50-AB12-680D674260AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D5F4B69-CE0D-4E50-AB12-680D674260AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D5F4B69-CE0D-4E50-AB12-680D674260AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D5F4B69-CE0D-4E50-AB12-680D674260AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

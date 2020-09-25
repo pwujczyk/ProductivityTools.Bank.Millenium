@@ -1,6 +1,6 @@
-﻿using ProductivityTools.Bank.Millenium.Commands;
-using ProductivityTools.Bank.Millenium.Objects;
+﻿using ProductivityTools.Bank.Millenium.Caller;
 using ProductivityTools.Bank.Millenium.Selenium;
+using ProductivityTools.BankAccounts.Contract;
 using System;
 using System.Collections.Generic;
 
@@ -9,9 +9,9 @@ namespace ProductivityTools.Bank.Millenium.App
     public class MilleniumApplication
     {
         SeleniumCalls seleniumCalls;
-        BMCommands BMCommands;
+        HttpCaller BMCommands;
 
-        public MilleniumApplication(SeleniumCalls selenium, BMCommands bmcommands)
+        public MilleniumApplication(SeleniumCalls selenium, HttpCaller bmcommands)
         {
             this.seleniumCalls = selenium;
             this.BMCommands = bmcommands;

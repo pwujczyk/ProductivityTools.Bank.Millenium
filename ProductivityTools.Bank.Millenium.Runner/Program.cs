@@ -3,9 +3,8 @@ using System;
 using Microsoft.Extensions.Configuration;
 using ProductivityTools.MasterConfiguration;
 using Microsoft.Extensions.DependencyInjection;
-using ProductivityTools.Bank.Millenium.Database;
-using ProductivityTools.Bank.Millenium.Commands;
 using ProductivityTools.Bank.Millenium.Selenium;
+using ProductivityTools.Bank.Millenium.Caller;
 
 namespace ProductivityTools.Bank.Millenium.Runner
 {
@@ -33,14 +32,11 @@ namespace ProductivityTools.Bank.Millenium.Runner
             Console.WriteLine(settings);
 
 
-            var serviceProvider = new ServiceCollection().AddLogging()
-          .AddSingleton<MilleniumContext>()
+            var serviceProvider = new ServiceCollection()
           .AddSingleton<MilleniumApplication>()//remove references to projects
-          .AddSingleton<BMCommands>()
+          .AddSingleton<HttpCaller>()
           .AddSingleton<SeleniumCalls>()
-          .AddSingleton<MilleniumContext>()
           .AddSingleton<IConfiguration>(configuration)
-          .AddSingleton<ProductivityTools.DateTimeTools.IDateTimePT, ProductivityTools.DateTimeTools.DateTimePT>()
           .BuildServiceProvider();
 
             var app = serviceProvider.GetService<MilleniumApplication>();

@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration\ProductivityTools.MasterConfiguration.csproj" />
     <ProjectReference Include="..\ProductivityTools.Bank.Millenium.App\ProductivityTools.Bank.Millenium.App.csproj" />
-    <ProjectReference Include="..\ProductivityTools.Bank.Millenium.Database\ProductivityTools.Bank.Millenium.Database.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProductivityTools.Bank.Millenium.Commands\ProductivityTools.Bank.Millenium.Commands.csproj" />
+    <PackageReference Include="ProductivityTools.BankAccounts.Contract" Version="0.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductivityTools.Bank.Millenium.Caller\ProductivityTools.Bank.Millenium.Caller.csproj" />
     <ProjectReference Include="..\ProductivityTools.Bank.Millenium.Selenium\ProductivityTools.Bank.Millenium.Selenium.csproj" />
   </ItemGroup>
 
