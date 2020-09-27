@@ -17,15 +17,15 @@ namespace ProductivityTools.Bank.Millenium.App
             this.BMCommands = bmcommands;
         }
 
-        public void Run(string login, string password, string pesel)
+        public async void Run(string login, string password, string pesel)
         {
             //SeleniumCalls calls = new SeleniumCalls();
             seleniumCalls.Login(login, password, pesel);
             BasicData basicData= seleniumCalls.GetBasicData();
-            BMCommands.SaveBasicData(basicData);
+            await BMCommands.SaveBasicData(basicData);
             List<Transaction> transactions=seleniumCalls.GetTransactions();
              
-            BMCommands.SaveTransactions(transactions);
+            await BMCommands.SaveTransactions(transactions);
         }
     }
 }

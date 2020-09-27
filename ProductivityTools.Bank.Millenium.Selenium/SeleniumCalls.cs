@@ -150,6 +150,8 @@ namespace ProductivityTools.Bank.Millenium.Selenium
         public BasicData GetBasicData()
         {
             var result = new BasicData();
+            result.Bank = "Millenium";
+            result.Account = "Glowny";
 
             Func<string, decimal> parse = (s) =>
                {
