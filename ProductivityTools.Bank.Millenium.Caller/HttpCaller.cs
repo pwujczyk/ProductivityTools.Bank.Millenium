@@ -13,7 +13,7 @@ namespace ProductivityTools.Bank.Millenium.Caller
         public HttpCaller()
         {
             client = new HttpPostClient();
-            client.SetBaseUrl("https://localhost:44306");
+            client.SetBaseUrl("https://localhost:9208");
         }
 
         public async Task SaveBasicData(BasicData basicData)

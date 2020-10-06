@@ -9,12 +9,12 @@ namespace ProductivityTools.Bank.Millenium.App
     public class MilleniumApplication
     {
         SeleniumCalls seleniumCalls;
-        HttpCaller BMCommands;
+        HttpCaller HttpCaller;
 
-        public MilleniumApplication(SeleniumCalls selenium, HttpCaller bmcommands)
+        public MilleniumApplication(SeleniumCalls selenium, HttpCaller httpCalller)
         {
             this.seleniumCalls = selenium;
-            this.BMCommands = bmcommands;
+            this.HttpCaller = httpCalller;
         }
 
         public async void Run(string login, string password, string pesel)
@@ -22,10 +22,10 @@ namespace ProductivityTools.Bank.Millenium.App
             //SeleniumCalls calls = new SeleniumCalls();
             seleniumCalls.Login(login, password, pesel);
             BasicData basicData= seleniumCalls.GetBasicData();
-            await BMCommands.SaveBasicData(basicData);
+            await HttpCaller.SaveBasicData(basicData);
             List<Transaction> transactions=seleniumCalls.GetTransactions();
              
-            await BMCommands.SaveTransactions(transactions);
+            await HttpCaller.SaveTransactions(transactions);
         }
     }
 }
