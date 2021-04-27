@@ -34,7 +34,29 @@ namespace ProductivityTools.Bank.Millenium.Selenium
             //ReadOnlyDesiredCapabilities capabilities = new ReadOnlyDesiredCapabilities();
 
             //capabilities.etCapability(ChromeOptions.CAPABILITY, options);
+            ValidateAndCreateChromeDriver<ChromeDriver>(options);
             this.Chrome = new ChromeDriver(options);
+
+
+        }
+
+        private T ValidateAndCreateChromeDriver<T>(object options)
+        {
+            try
+            {
+                var r = (T)Activator.CreateInstance(typeof(T), options);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException.Message.Contains("session not created: This version of ChromeDriver only supports Chrome"))
+                {
+                    GetChromeDriver.ChromeDriver.DownloadLatestVersion();
+                    var r = (T)Activator.CreateInstance(typeof(T), options);
+                }
+                throw;
+            }
+            throw new Exception();
+
         }
 
         private bool FillMillekode(string login)
